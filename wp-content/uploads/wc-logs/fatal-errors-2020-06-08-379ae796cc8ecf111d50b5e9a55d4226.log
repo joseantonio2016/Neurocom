@@ -1,0 +1,135 @@
+2020-06-08T16:28:55+00:00 CRITICAL Uncaught Error: Call to undefined function run_import_ebay_product_to_woocommerce() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php:72
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(659): include_once()
+#1 C:\xampp\htdocs\segunda\wp-admin\plugins.php(44): activate_plugin('import-export-e...', 'http://localhos...', false)
+#2 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 72
+
+2020-06-08T16:28:59+00:00 CRITICAL Uncaught Error: Call to undefined function run_import_ebay_product_to_woocommerce() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php:72
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(2255): include()
+#1 C:\xampp\htdocs\segunda\wp-admin\plugins.php(177): plugin_sandbox_scrape('import-export-e...')
+#2 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 72
+
+2020-06-08T16:28:59+00:00 CRITICAL Uncaught Error: Call to undefined function run_import_ebay_product_to_woocommerce() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php:72
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(2255): include()
+#1 C:\xampp\htdocs\segunda\wp-admin\plugins.php(177): plugin_sandbox_scrape('import-export-e...')
+#2 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 72
+
+2020-06-08T16:31:26+00:00 CRITICAL Uncaught Error: Class 'Import_Ebay_Product_To_Woocommerce_Loader' not found in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php:43
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php(16): Import_Export_Ebay_Woo->load_dependencies()
+#1 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(68): Import_Export_Ebay_Woo->__construct()
+#2 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(72): run_import_export_ebay_woocommerce()
+#3 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(659): include_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\segunda\wp-admin\plugins.php(44): activate_plugin('import-export-e...', 'http://localhos...', false)
+#5 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php on line 43
+
+2020-06-08T16:31:30+00:00 CRITICAL Uncaught Error: Class 'Import_Ebay_Product_To_Woocommerce_Loader' not found in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php:43
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php(16): Import_Export_Ebay_Woo->load_dependencies()
+#1 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(68): Import_Export_Ebay_Woo->__construct()
+#2 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(72): run_import_export_ebay_woocommerce()
+#3 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(2255): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\segunda\wp-admin\plugins.php(177): plugin_sandbox_scrape('import-export-e...')
+#5 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php on line 43
+
+2020-06-08T16:31:30+00:00 CRITICAL Uncaught Error: Class 'Import_Ebay_Product_To_Woocommerce_Loader' not found in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php:43
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php(16): Import_Export_Ebay_Woo->load_dependencies()
+#1 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(68): Import_Export_Ebay_Woo->__construct()
+#2 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(72): run_import_export_ebay_woocommerce()
+#3 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(2255): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\segunda\wp-admin\plugins.php(177): plugin_sandbox_scrape('import-export-e...')
+#5 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php on line 43
+
+2020-06-08T16:41:24+00:00 CRITICAL Uncaught Error: Class 'Import_Export_Ebay_Woo_i18n' not found in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php:49
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php(17): Import_Export_Ebay_Woo->set_locale()
+#1 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(68): Import_Export_Ebay_Woo->__construct()
+#2 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(72): run_import_export_ebay_woocommerce()
+#3 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(659): include_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\segunda\wp-admin\plugins.php(44): activate_plugin('import-export-e...', 'http://localhos...', false)
+#5 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php on line 49
+
+2020-06-08T16:41:28+00:00 CRITICAL Uncaught Error: Class 'Import_Export_Ebay_Woo_i18n' not found in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php:49
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php(17): Import_Export_Ebay_Woo->set_locale()
+#1 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(68): Import_Export_Ebay_Woo->__construct()
+#2 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(72): run_import_export_ebay_woocommerce()
+#3 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(2255): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\segunda\wp-admin\plugins.php(177): plugin_sandbox_scrape('import-export-e...')
+#5 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php on line 49
+
+2020-06-08T16:41:28+00:00 CRITICAL Uncaught Error: Class 'Import_Export_Ebay_Woo_i18n' not found in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php:49
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php(17): Import_Export_Ebay_Woo->set_locale()
+#1 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(68): Import_Export_Ebay_Woo->__construct()
+#2 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php(72): run_import_export_ebay_woocommerce()
+#3 C:\xampp\htdocs\segunda\wp-admin\includes\plugin.php(2255): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\segunda\wp-admin\plugins.php(177): plugin_sandbox_scrape('import-export-e...')
+#5 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\includes\class-import-export-ebay-woo.php on line 49
+
+2020-06-08T16:50:10+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:50:13+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:50:14+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:53:38+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:53:42+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:53:43+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:55:48+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:55:52+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T16:55:52+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:18:00+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:18:04+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:18:05+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:31:38+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:31:42+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:31:43+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:50:20+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:50:23+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:50:24+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:55:05+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:55:09+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T17:55:09+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='.;C:\xampp\php\PEAR;C:\xampp\htdocs\segunda') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T18:00:03+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\pear\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T18:00:06+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\pear\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T18:00:07+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\pear\PEAR') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T18:08:11+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\pear') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T18:08:14+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\pear') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+
+2020-06-08T18:08:15+00:00 CRITICAL require_once(): Failed opening required 'C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo/includes/class-import-export-ebay-woo-activator.php' (include_path='C:\xampp\php\pear') in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\import-export-ebay-woo.php on line 41
+

@@ -1,0 +1,49 @@
+2020-06-10T14:48:11+00:00 CRITICAL Uncaught Error: Call to undefined function valid_appid() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php:159
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_Admin->register_ebaydev('')
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\segunda\wp-admin\admin-ajax.php(175): do_action('wp_ajax_registe...')
+#4 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php on line 159
+
+2020-06-10T15:05:51+00:00 CRITICAL Uncaught Error: Call to undefined function valid_appid() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php:158
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_Admin->register_ebaydev('')
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\segunda\wp-admin\admin-ajax.php(175): do_action('wp_ajax_registe...')
+#4 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php on line 158
+
+2020-06-10T15:33:14+00:00 CRITICAL Uncaught Error: Call to undefined function valid_appid() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php:159
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_Admin->register_ebaydev('')
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\segunda\wp-admin\admin-ajax.php(175): do_action('wp_ajax_registe...')
+#4 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php on line 159
+
+2020-06-10T16:00:48+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php:198
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php(164): Import_Export_Ebay_Woo_Admin->insert_user('JoseAnto-neuror...', '14de5c9f-6d99-4...', 'SBX-2eb6be684ff...', 'AgAAAA**AQAAAA*...', 0)
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_Admin->register_ebaydev('')
+#2 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#3 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#4 C:\xampp\htdocs\segunda\wp-admin\admin-ajax.php(175): do_action('wp_ajax_registe...')
+#5 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php on line 198
+
+2020-06-10T16:39:08+00:00 CRITICAL syntax error, unexpected 'if' (T_IF), expecting ';' or ',' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 14
+
+2020-06-10T16:39:11+00:00 CRITICAL syntax error, unexpected 'if' (T_IF), expecting ';' or ',' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 14
+
+2020-06-10T21:42:35+00:00 CRITICAL syntax error, unexpected '}', expecting ';' or ',' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 16
+
+2020-06-10T21:42:46+00:00 CRITICAL syntax error, unexpected '}', expecting ';' or ',' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 16
+
+2020-06-10T22:09:38+00:00 CRITICAL syntax error, unexpected 'else' (T_ELSE) in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\import_ebay_woo.php on line 15
+
+2020-06-10T22:09:41+00:00 CRITICAL syntax error, unexpected 'else' (T_ELSE) in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\import_ebay_woo.php on line 15
+

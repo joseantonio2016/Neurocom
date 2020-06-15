@@ -1,0 +1,8 @@
+2020-06-11T04:48:34+00:00 CRITICAL syntax error, unexpected '$ambi' (T_VARIABLE) in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\import_ebay_woo.php on line 19
+
+2020-06-11T04:49:10+00:00 CRITICAL syntax error, unexpected '$ambi' (T_VARIABLE) in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\import_ebay_woo.php on line 22
+
+2020-06-11T04:49:36+00:00 CRITICAL syntax error, unexpected 'else' (T_ELSE) in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\import_ebay_woo.php on line 39
+
+2020-06-11T07:29:55+00:00 CRITICAL syntax error, unexpected '?>' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\import_ebay_woo.php on line 88
+

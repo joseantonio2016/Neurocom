@@ -1,0 +1,48 @@
+2020-06-09T10:14:03+00:00 CRITICAL Uncaught Error: Call to undefined function ie_ebay_woo_db_install() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\database\class-import-export-ebay-woo-db.php:47
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_DB->ie_ebay_woo_update_db_check('')
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#2 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\segunda\wp-settings.php(403): do_action('plugins_loaded')
+#4 C:\xampp\htdocs\segunda\wp-config.php(91): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\segunda\wp-load.php(37): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\segunda\wp-admin\admin.php(34): require_once('C:\\xampp\\htdocs...')
+#7 C:\xampp\htdocs\segunda\wp-admin\plugins.php(10): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\database\class-import-export-ebay-woo-db.php on line 47
+
+2020-06-09T15:27:42+00:00 CRITICAL syntax error, unexpected '}' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 6
+
+2020-06-09T16:05:09+00:00 CRITICAL syntax error, unexpected '{' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 3
+
+2020-06-09T16:06:56+00:00 CRITICAL syntax error, unexpected '{' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 4
+
+2020-06-09T16:08:15+00:00 CRITICAL syntax error, unexpected '{' in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\partials\setting_keys_id.php on line 10
+
+2020-06-09T18:18:17+00:00 CRITICAL Uncaught Error: Call to undefined function valid_appid() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php:155
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_Admin->register_ebaydev('')
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\segunda\wp-admin\admin-ajax.php(175): do_action('wp_ajax_registe...')
+#4 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php on line 155
+
+2020-06-09T18:24:53+00:00 CRITICAL Uncaught Error: Call to undefined function valid_appid() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php:155
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_Admin->register_ebaydev('')
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\segunda\wp-admin\admin-ajax.php(175): do_action('wp_ajax_registe...')
+#4 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php on line 155
+
+2020-06-09T18:25:49+00:00 CRITICAL Uncaught Error: Call to undefined function valid_appid() in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php:155
+Stack trace:
+#0 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(287): Import_Export_Ebay_Woo_Admin->register_ebaydev('')
+#1 C:\xampp\htdocs\segunda\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\segunda\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\segunda\wp-admin\admin-ajax.php(175): do_action('wp_ajax_registe...')
+#4 {main}
+  thrown in C:\xampp\htdocs\segunda\wp-content\plugins\import-export-ebay-woo\admin\class-import-export-ebay-woo-admin.php on line 155
+
