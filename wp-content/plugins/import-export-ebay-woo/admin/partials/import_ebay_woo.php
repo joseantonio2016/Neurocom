@@ -4,19 +4,6 @@
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/import_ew_previo.php'; 
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'; 
 
- // $terms = get_terms( array(
- //                'taxonomy' => 'product_cat',
- //                'parent'=> 0,
- //                'hide_empty' => false) );
- // echo '<pre>';
- // $miscategorias_html='';
- // foreach($terms as $termino){
- //            $miscategorias_html.='<option value="'.$termino->term_id.'">'.$termino->name.'</option>';
- //                }
- // print_r($miscategorias_html);
- // echo '</pre>';
-//add_filter('get_terms_orderby','gto_forced_order');
-
  ?>
 
 <h3> Importar desde Ebay</h3>
@@ -24,7 +11,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
         <div class="form-group">
 	<label for="id_imp" class="col-sm-2 control-label">Ingresa AppID </label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" id="id_imp" name="id_imp" placeholder="Ingresa AppID valido (mejor si ya esta registrado)" value="<?=$ie_ew_current_id;?>">
+      <input type="text" class="form-control" id="id_imp" name="id_imp" placeholder="Ingresa AppID valido" value="<?=$user_active;?>">
     </div>
     </div>
     <div class="form-group">
@@ -59,18 +46,15 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
     <button type="submit" id="search_kwitem" class="btn btn-primary col-sm-2">Buscar Articulos</button>
     <button type="submit" id="search_kwprod" class="btn btn-secondary col-sm-2">Buscar Productos</button>
   </div>
-    <div>
-    	<div class="row-fluid">
-		<div class="col-md-12">
+    <div class="row-fluid">
+    	<div class="col-md-12">
+		
 		<h5>Examinando Categorias de Ebay</h5>
 		</div>
-		</div>
-        <input type="hidden" id="counter_gc" value="-1" />
     	<div class="div-scrollbar columns" id="scroll_gc">
 			<select size="15" id="fcat"><?php echo $browse ?></select>
 			<span></span>
-			<br/>
-			<div class="row-fluid ionise"></div>
+			<div class="ionise"></div>
 		</div>
     </div>
     <div class="form-inline">
@@ -104,7 +88,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
  </div>
 </div>
 <script type="text/javascript">
-        //$(document).ready(function(){
+        $(document).ready(function(){
             //var cats_php = JSON.parse(<?=$cats_js;?>);
             $('#fcat').change(function(){
             var catId = $('#fcat').val();
@@ -119,10 +103,11 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                  if(status=='success'){
                     var res = JSON.parse(response);
                     if (!res.leaf){
-                        $('.div-scrollbar > span').html('<select size="15" class="columns" id="subcat_'+res.i+'">'+res.browse+
+                        $('.div-scrollbar > span').html('<select size="15" class="columns" data-pos="'+res.i+'" id="subcat_'+res.i+'">'+res.browse+
                             '</select><span class="subcat_'+res.i+'"></span>');
                         $("#counter_gc").val("0");
                         $("#id_cat").val(catId);
+                        $('.ionise').html('');
                     }
                 //$('.div-scrollbar > span').html(response);
                     }else 
@@ -133,7 +118,8 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
             }); //select onchange
 
             $("#scroll_gc").on("change", ".columns", function(){
-               var counter = $("#counter_gc").val();
+                //alert($(this).attr('data-pos'));
+               var counter = $(this).attr('data-pos');//$("#counter_gc").val();
                 var catId = $('#subcat_'+counter).val();
                 var appId = $("#id_imp").val();
                 var ambito = $("input[name='amb_imp']:checked").val();
@@ -147,12 +133,13 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                 if(status =='success'){
                     var res = JSON.parse(response);
                     if (res.leaf){
-                         $(".ionise").html("<span class=\"nocategoriesC:\"><img src=\"http://pics.ebaystatic.com/aw/pics/icon/iconSuccess_32x32.gif\" alt='Fijate en el IdCategoria'><b>Categoria seleccionada:</b><ul><li>"+res.categorypath+
-                            "</li></ul><input type='button' id='remove' value='Remover' /></span>");
+                        $('span.subcat_'+counter).html('<img src="http://pics.ebaystatic.com/aw/pics/icon/iconSuccess_32x32.gif" alt="Leaf Category!">');
+                         $(".ionise").html("<span><b>Categoria seleccionada:</b><ul><li>"+res.categorypath+"</li></ul></span>");
                     }else{  
-                        $('span.subcat_'+counter).html('<select size="15" class="columns" id="subcat_'+res.i+'">'+res.browse+
+                     
+                        $('span.subcat_'+counter).html('<select size="15" class="columns" data-pos="'+res.i+'" id="subcat_'+res.i+'">'+res.browse+
                             '</select><span class="subcat_'+res.i+'"></span>');
-                            $("#counter_gc").val(""+res.i);
+                             $('.ionise').html('');
                     }
                     $("#id_cat").val(catId);
                 
@@ -225,6 +212,8 @@ var arr = [];
      
 
     });
+
+});
 
   //   $('#btn_close_t1').click(function(){
   //  $('#TB_window').fadeOut();

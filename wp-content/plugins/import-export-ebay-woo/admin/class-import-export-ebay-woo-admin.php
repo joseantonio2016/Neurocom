@@ -74,8 +74,10 @@ class Import_Export_Ebay_Woo_Admin {
 		 */
 
 		wp_enqueue_style( 'bootstrap.min.css', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
-        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/import-export-ebay-woo-admin.css', array(), $this->version, 'all' );
+        wp_enqueue_style( 'iewooebay.css', plugin_dir_url( __FILE__ ) . 'css/iewooebay.css', array(), $this->version, 'all' );
+        
         wp_enqueue_style( 'jquery.dropdown.css', plugin_dir_url( __FILE__ ) . 'css/jquery.dropdown.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/import-export-ebay-woo-admin.css', array(), $this->version, 'all' );
 		
 		
 
@@ -101,10 +103,9 @@ class Import_Export_Ebay_Woo_Admin {
 		 */
 		wp_enqueue_script("jquery.min.js", plugin_dir_url( __FILE__ ) . 'js/jquery.min.js', array( 'jquery' ), $this->version, false );
         wp_enqueue_script("bootstrap.min.js", plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
+        wp_enqueue_script( 'jquery.dropdown.js', plugin_dir_url( __FILE__ ) . 'js/jquery.dropdown.js', array( 'jquery' ), $this->version, false );
         wp_enqueue_script("ie-ebaywoo.js", plugin_dir_url( __FILE__ ) . 'js/ie-ebaywoo.js', array('jquery'), $this->version, false);
-         wp_enqueue_script( 'jquery.dropdown.js', plugin_dir_url( __FILE__ ) . 'js/jquery.dropdown.js', array( 'jquery' ), $this->version, false );
         wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/import-export-ebay-woo-admin.js', array( 'jquery' ), $this->version, false );
-       
         //wp_localize_script('ebaywoo', 'ebaydev',admin_url('admin-ajax.php'));
 	 	wp_localize_script($this->plugin_name, 'ebay_ajax',admin_url('admin-ajax.php'));                
         
@@ -211,22 +212,25 @@ class Import_Export_Ebay_Woo_Admin {
                 $dev = $_POST['devid'];
                 $cert = $_POST['certid'];
                 $token = $_POST['token'];
+                $siteid = $_POST['siteid'];
+                $email = $_POST['email'];
                 $app_v = $this->valid_appid($app, $amb);
+
                 if($app_v!=$app){
-                    echo 'Error: '.$app_v;
+                    echo '<p class="bg-danger"><b>Error: '.$app_v."</b></p>";
                     exit();
                 } 
-                $res = $this->insert_user($app, $dev, $cert, $token, $amb);
+                $res = $this->insert_user($app, $dev, $cert, $token, $amb, $email);
                 if($res){
-                    update_option('ie_ebay_woo_current_user', $app);
-                    echo 'Exitoso registro';
+                    $arr_user = array('user'=>$app,'amb'=>$amb,'siteid'=>$siteid);
+                    update_option('ie_ebay_woo_current_user', $arr_user);
+                    echo '<p class="bg-success"><b>Exitoso registro</b></p>';
                 }else{
-                    echo 'Error al registrar';
-
+                    echo '<p class="bg-danger">No se registro nada</p>';
                 }
                 exit();
             }else {
-                echo 'Error en el POST';
+                echo '<p>Error enviando solicitud</p>';
                 exit();
             }
 
@@ -249,15 +253,16 @@ class Import_Export_Ebay_Woo_Admin {
             }else return $appid;
         }
 
-        function insert_user($app, $dev, $cert, $token, $amb){
+        function insert_user($app, $dev, $cert, $token, $amb, $email){
         global $wpdb;
-            $table_name = $wpdb->prefix . 'ie_ebay_woo_usr';
+            $table_name = $wpdb->prefix . 'ie_ebay_woo_user';
             return $wpdb->insert( $table_name, array( 
         'appid' => $app, 
         'devid' => $dev, 
         'certid' => $cert,
         'token' => $token,
-        'ambito' => $amb
+        'ambito' => $amb,
+        'email' => $email
     ) 
 );
 

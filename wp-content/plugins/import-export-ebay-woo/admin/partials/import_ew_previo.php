@@ -1,28 +1,29 @@
 <?php
+
 $browse = '';
-$endpoint_imp = "";
-$ambi = array('', '');
-$dir_gc = dirname(__FILE__);
+
+$ambi = array('checked', '');
 $ie_ew_current_id = get_option( 'ie_ebay_woo_current_user');
-if($ie_ew_current_id){
-    global $wpdb;
-    $tbl_usr = $wpdb->prefix.'ie_ebay_woo_usr';
-    $query = "SELECT * FROM $tbl_usr WHERE appid='$ie_ew_current_id'";
-     $u = $wpdb->get_var($query, 5);
-     $siteID_imp = '0';
-     if($u==1||$u==0) {
-     	if($u==1){
+$user_active = "";
+if(isset($ie_ew_current_id['user'])){
+    $user_active = $ie_ew_current_id['user'];
+    $amb = $ie_ew_current_id['amb'] or 1;
+    $siteid = $ie_ew_current_id['siteid'] or 0;
+    $endpoint_imp = "";
+   
+     if($amb==1){
      		$endpoint_imp="http://open.api.ebay.com/Shopping?";
      		$ambi=array('checked', '');
      	}else{
      		$endpoint_imp="http://open.api.sandbox.ebay.com/Shopping?";
      		$ambi=array('', 'checked');
      	}
-     	$url_imp .= $endpoint_imp."callname=GetCategoryInfo"
-     			."&appid=$ie_ew_current_id"
-     			."&siteid=$siteID_imp"
+
+     $url_imp .= $endpoint_imp."callname=GetCategoryInfo"
+     			."&appid=$user_active"
+     			."&siteid=$siteid"
      			."&CategoryID=-1"
-     			."&version=677"
+     			."&version=863"
      			."&IncludeSelector=ChildCategories";
      	$xml = simplexml_load_file($url_imp);
      	if($xml->Ack == 'Success'){
@@ -32,8 +33,10 @@ if($ie_ew_current_id){
 			endif;
 				}
      		}else echo "<p><b>eBay retorna errores</b></p>";
-        }else echo "<p>AppID no registrado</p>";
-     }else $ie_ew_current_id='';
+ }else{
+    echo "<p class='bg-danger aviso col-4'><b>Registre primero un AppID Ebay activo en Setting</b><p>";
+ } 
+
 
 //OBTENER CATEGORIAS
      $cats_all = get_terms( array(

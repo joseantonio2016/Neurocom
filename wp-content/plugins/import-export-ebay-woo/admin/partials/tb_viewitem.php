@@ -37,9 +37,7 @@ add_thickbox();
   <div class="col-4">
     <img id= "img_it" src="" height="200" alt='No hay imagen del articulo'>
     <div id="btn_it">
-      <a role="button" class="btn btn-info btn-block" target="_blank">Mas detalles</a>
-       
-         
+      <a role="button" class="btn btn-info btn-block" target="_blank">Mas detalles</a> 
     </div>
  
   </div>
