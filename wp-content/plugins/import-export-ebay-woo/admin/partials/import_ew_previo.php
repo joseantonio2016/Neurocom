@@ -34,7 +34,7 @@ if(isset($ie_ew_current_id['user'])){
 				}
      		}else echo "<p><b>eBay retorna errores</b></p>";
  }else{
-    echo "<p class='bg-danger aviso col-4'><b>Registre primero un AppID Ebay activo en Setting</b><p>";
+    echo "<p class='bg-danger aviso col-4'><b>Registre primero un AppID Ebay activo en Setting</b><p><br>";
  } 
 
 

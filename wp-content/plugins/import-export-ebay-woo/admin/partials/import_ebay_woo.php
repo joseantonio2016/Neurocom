@@ -47,14 +47,11 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
     <button type="submit" id="search_kwprod" class="btn btn-secondary col-sm-2">Buscar Productos</button>
   </div>
     <div class="row-fluid">
-    	<div class="col-md-12">
-		
 		<h5>Examinando Categorias de Ebay</h5>
-		</div>
     	<div class="div-scrollbar columns" id="scroll_gc">
 			<select size="15" id="fcat"><?php echo $browse ?></select>
 			<span></span>
-			<div class="ionise"></div>
+			<div class="ionise bg-success"></div>
 		</div>
     </div>
     <div class="form-inline">
@@ -170,8 +167,9 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     $("#location_it").html(res.locatio);
                     $("#typelist_it").html(res.listype);
                     $("#statuslist_it").html(res.statusl);
-                    $("#categ_it").html(res.namecat);
+                    $("#categ_it").html(res.categnm);
                     $("#url_view_it").attr('href',res.viewurl);
+                    $("#pathcat1").html(res.namecat);
                    }else{
                     e.preventDefault();
                     alert("Error "+res.error);
@@ -181,7 +179,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     
             });
 
-            $('.dropdown-sin-2').dropdown({
+            $('#tick1_categ_tienda').dropdown({
       data: <?=$cats_js; ?>,//json2.data,
       limitCount: 7,
       multipleMode: 'label',
@@ -213,6 +211,13 @@ var arr = [];
 
     });
 
+});
+
+$('input:radio[name="choosecat"]').change(function(){
+    var inputValue = $(this).attr("value");
+    var targetBox = $("." + inputValue);
+    $(".cates1").not(targetBox).hide();
+    $(targetBox).show();
 });
 
   //   $('#btn_close_t1').click(function(){

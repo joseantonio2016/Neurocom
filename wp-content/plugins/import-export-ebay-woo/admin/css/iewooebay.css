@@ -8,3 +8,20 @@
  .aviso{
  	margin-bottom: 2em;
  }
+ .exito{
+ 	.background-color: #93C54B;
+ }
+ .textocorto{
+ 	word-wrap: break-word;
+ }
+ .tc{
+ 	text-align: center;
+ }
+
+ #pathcat1{
+ 	display: none;
+ }
+ .cat_eba{
+ 	background-color: rgba(53,7,100,0);
+ 	margin-left: 1em;
+ }

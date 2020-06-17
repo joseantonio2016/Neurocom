@@ -2,7 +2,7 @@
  
   $ie_ew_current_id = get_option( 'ie_ebay_woo_current_user');
   if(isset($ie_ew_current_id['user'])){
-      echo "<b>AppID activo: ".$ie_ew_current_id['user']."</b>";
+      echo "<br><span class='exito'>AppID activo: <b>".$ie_ew_current_id['user']."</b></span><br><br>";
   }
 ?> 
 <h3> Registrar o actualizar Keys</h3>

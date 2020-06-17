@@ -274,12 +274,14 @@ class Import_Export_Ebay_Woo_Admin {
                 $xml = $this->get_single_ebay_item($_POST['iditem'],$_POST['appid']);
                 if($xml->Ack=="Success"){
                     $list = $xml->Item;
+                    $catp = end(explode(":", $list->PrimaryCategoryName.''));
                     $item_array = array(
                         'viewurl'=>$list->ViewItemURLForNaturalSearch.'',
                         'listype'=>$list->ListingType.'',
                         'locatio'=>$list->Location.' - '.$list->Country,
                         'picture'=>$list->PictureURL[0].'',
                         'namecat'=>$list->PrimaryCategoryName.'',
+                        'categnm'=>$catp,
                         'pricenw'=>$list->ConvertedCurrentPrice.'',
                         'statusl'=>$list->ListingStatus.'',
                         'titulo1'=>$list->Title.'',
