@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<title>Selecciona celdas</title>
+	<style type="text/css">
+		#table { border:1px solid #ccc; }
+#table td { padding:0px; }
+/*#table td.selected { background-color:#ccc; }*/
+#table input.selected { background-color:#ccc; }
+input{
+	border:1px solid #ff0000; margin: -1px;
+}
+	</style>
+</head>
+<body>
+	<table id="table">
+  <tr>
+    <td><input type="text" name="cola" value="A"></td>
+    <td><input type="text" name="colb" value="B"></td>
+    <td><input type="text" name="colc" value="C"></td>
+  </tr>
+  <tr>
+    <td>D</td>
+    <td>E</td>
+    <td>F</td>
+  </tr>
+  <tr>
+    <td>G</td>
+    <td>H</td>
+    <td>I</td>
+  </tr>
+</table>
+<script type="text/javascript" src="js/selectcell.js"></script>
+</body>
+</html>

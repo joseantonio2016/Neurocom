@@ -1,0 +1,46 @@
+{
+	"doc": [{
+		"idoc": 1,
+		"tipo": 2,
+		"name": "mihoja",
+		"date": 190812121413,
+		"rows": 15,
+		"cols": 5,
+		"widths": [4, 8, 12, 16, 8],
+		"colauto":[3,2],
+		"usersdoc": [1, 2],
+		"usrmastr":1,
+		"cell": [
+			{
+				"id": "f1c1",
+				"content": "algo ahi",
+				"color": 1,
+				"black": true,
+				"funcion": false,
+				"anyedit":true,
+				"comment":"Es mi celda",
+				"ulast": 1,
+				"datelast": "hoy"
+			},
+			{
+				"id": "f2c1",
+				"content": "algo ahi",
+				"color": 1,
+				"black": true,
+				"funcion": false,
+				"anyedit":true,
+				"comment":"Es mi celda",
+				"userlast": 1,
+				"datelast": "hoy"
+			}
+		]
+			
+	}],
+	"user": [
+		{
+			"id": 1,
+			"nick": "jose",
+			"pass": "pacha"
+		}
+	]
+}
