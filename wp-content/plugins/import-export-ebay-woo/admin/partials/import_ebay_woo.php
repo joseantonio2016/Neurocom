@@ -1,22 +1,23 @@
 
-
 <?php 
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/import_ew_previo.php'; 
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'; 
 
  ?>
 
-<h3> Importar desde Ebay</h3>
+
 <div class="form">
-        <div class="form-group">
-	<label for="id_imp" class="col-sm-2 control-label">Ingresa AppID </label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="id_imp" name="id_imp" placeholder="Ingresa AppID valido" value="<?=$user_active;?>">
+    <h3> Importar desde Ebay</h3>
+
+        <div class="form-row col-md-12 col-lg-10">
+	<label for="id_imp" class="col-sm-8 col-md-2 control-label">AppID:</label>
+   
+      <input type="text" class="form-control col-sm-8 col-md-6" id="id_imp" name="id_imp" placeholder="Ingresa AppID valido" value="<?=$user_active;?>">
+    
     </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Ambito del App</label>
-    <div class="col-sm-10">
+    <div class="form-row col-md-12 col-lg-10">
+        <label class="col-sm-8 col-md-2 control-label">Ambito del App</label>
+    <div class="col-sm-10 col-md-8">
         <label class="radio-inline">
   <input type="radio" id="prod_imp" name="amb_imp" value="production" <?=$ambi[0];?> > Produccion
 </label>
@@ -26,50 +27,61 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
     </div>
         
     </div>
+ <br>
 
-    <div id="import-form" class="form">
-
-    <h4>Buscar articulo</h4>
-    <div class="form-sm-10">
-        <label for="iditem" class="control-label">Ingresa ID del articulo Ebay </label>
-        <div class="form-inline">
-            <input type="text" class="form-control col-sm-2" id="iditem" name="iditem" placeholder="Id Item Ebay">
-    <a role="button" href="#TB_inline?width=630&height=450&inlineId=my-content-id" id="search_iditem" class="btn btn-info col-sm-2 thickbox">Detalles de Articulo</a>
+    <div class="form col-md-12 col-lg-10">
+        <h4>Importar un articulo de Ebay</h4>
+        <div class="form-row">
+            <label for="iditem" class="control-label col-sm-10 col-md-2">ID articulo:</label> 
+            <input type="text" class="form-control col-sm-4 col-md-3" id="iditem" name="iditem" placeholder="Ingresa numero del articulo">
+    <a role="button" href="#TB_inline?width=630&height=450&inlineId=my-content-id" id="search_iditem" class="btn btn-info col-sm-4 col-md-3 thickbox">Detalles de Articulo</a>
         </div>
     </div>
 
-<h4>Buscar listas de articulos</h4>
+<br>
 
-  <div class="form-group">
-    <label for="kw_item" class="col-sm-4 control-label">Articulos o productos por palabras claves</label>
-    <input type="text" class="form-control col-sm-4" id="kw_item" name="kw_iditem" placeholder="Keywords">
-    <button type="submit" id="search_kwitem" class="btn btn-primary col-sm-2">Buscar Articulos</button>
-    <button type="submit" id="search_kwprod" class="btn btn-secondary col-sm-2">Buscar Productos</button>
+<div class="form col-md-12 col-lg-10">
+    <h4>Buscar listas de articulos</h4>
+    <div class="form-row">
+    <label for="kw_item" class="col-sm-8 col-md-2 control-label">
+        <strong>Palabras clave:</strong></label>
+    <div class="form-group col-sm-8 col-md-6">
+        <input type="text" class="form-control" id="kw_item" name="kw_iditem" placeholder="Escribe palabras clave para buscar">
+        <div class="form-row">
+            <a role="button" id="search_kwitem" href="#TB_inline?width=630&height=450&inlineId=result-keywords" class="btn btn-primary col-6">Buscar Articulos</a>
+            <a role="button" id="search_kwprod" class="btn btn-secondary col-6">Buscar Productos</a>
+        </div>
+    </div>
   </div>
+</div>
+
     <div class="row-fluid">
-		<h5>Examinando Categorias de Ebay</h5>
+		<h5>Examinar Categorias de Ebay</h5>
     	<div class="div-scrollbar columns" id="scroll_gc">
-			<select size="15" id="fcat"><?php echo $browse ?></select>
-			<span></span>
-			<div class="ionise bg-success"></div>
+			<select size="15" id="fcat"><?=$browsecat;?></select>
+			<span></span>	
 		</div>
     </div>
-    <div class="form-inline">
-    <input type="text" class="form-control col-sm-2" id="id_cat" name="id_cat" placeholder="Ingresar Id de categoria">
-    <button type="submit" id="search_idcat " class="btn btn-info col-sm-2">Detalles de Categoria</button>
+<div class="form col-md-12 col-lg-10">
+     <div class="ionise"></div>
+     <div class="form-row">
+    <label for="id_cat" class="col-sm-8 col-md-2 control-label">Categoria Ebay:</label>
+    <input type="text" class="form-control col-sm-8 col-md-3" id="id_cat" name="id_cat" placeholder="Ingresa Id de categoria">
+    <a role="button" id="search_idcat " class="btn btn-info col-sm-8 col-md-3">Detalles de Categoria</a>
     </div>
+</div>
+
 <br>
 <h5>Refinar busqueda con:</h5>
 <div class="form-inline">
-    <button type="text" class="btn btn-primary col-sm-2" id="set_filter" name="set_filter">Filtros</button>
+    <button class="btn btn-primary col-sm-2" id="set_filter" name="set_filter">Filtros</button>
     <button type="submit" id="set_opt " name ="set_opt" class="btn btn-secondary col-sm-2">Opciones</button>
 </div>
-<br>
 <a role="button" class="btn btn-info col-sm-4" id="previo_search"  >Ver Resultados</a>
 <br>
 <br>        <div class="row-fluid col-md-5">
         <h5>Examinando Categorias de la Tienda</h5>
-            <div class="dropdown-sin-2" id="princ_categ_tienda">
+            <div class="dropdown_catstore" id="princ_categ_tienda">
             <select style="display:none" multiple placeholder="Selecciona categoria(s)"></select>
             </div>
             <input type="hidden" id="conteo_gc" value="-1" />
@@ -82,7 +94,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
     <button type="submit" id="imp_prog " name ="imp_prog" class="btn btn-secondary col-sm-2">Programar</button>
         </div>
     
- </div>
+ 
 </div>
 <script type="text/javascript">
         $(document).ready(function(){
@@ -131,7 +143,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     var res = JSON.parse(response);
                     if (res.leaf){
                         $('span.subcat_'+counter).html('<img src="http://pics.ebaystatic.com/aw/pics/icon/iconSuccess_32x32.gif" alt="Leaf Category!">');
-                         $(".ionise").html("<span><b>Categoria seleccionada:</b><ul><li>"+res.categorypath+"</li></ul></span>");
+                         $(".ionise").html("<span><b>Categoria seleccionada:</b> ID="+catId+"<ul><li>"+res.categorypath+"</li></ul></span>");
                     }else{  
                      
                         $('span.subcat_'+counter).html('<select size="15" class="columns" data-pos="'+res.i+'" id="subcat_'+res.i+'">'+res.browse+
@@ -179,7 +191,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     
             });
 
-            $('#tick1_categ_tienda').dropdown({
+            $('.dropdown_catstore').dropdown({
       data: <?=$cats_js; ?>,//json2.data,
       limitCount: 7,
       multipleMode: 'label',

@@ -1,6 +1,10 @@
 <?php 
  
-  $ie_ew_current_id = get_option( 'ie_ebay_woo_current_user');
+ $ie_ew_current_id = array();
+if (false === ($ie_ew_current_id = get_transient ('ie_ew_current_id'))) {
+     $ie_ew_current_id = get_option( 'ie_ebay_woo_current_user');
+     set_transient ('ie_ew_current_id', $ie_ew_current_id, 12*HOUR_IN_SECONDS);
+}
   if(isset($ie_ew_current_id['user'])){
       echo "<br><span class='exito'>AppID activo: <b>".$ie_ew_current_id['user']."</b></span><br><br>";
   }
@@ -9,40 +13,40 @@
 <div class="form">
   <div id="arriba">
       <div class="row conf">
-      <div class="col-2 nextlin">
-        <label for="eAppId">Ingresa AppID </label>
+      <div class="col-1 nextlin">
+        <label for="eAppId">AppID </label>
       </div>
       <div class="col-10">
         <input type="text" class="form-control col-sm-4" id="eAppId" name="eAppId" placeholder="Ingresa AppID (obligatorio)">
       </div>
     </div>
     <div class="row conf">
-      <div class="col-2 nextlin">
-        <label for="eDevId">Ingresa DevID </label>
+      <div class="col-1 nextlin">
+        <label for="eDevId">DevID </label>
       </div>
       <div class="col-10">
          <input type="text" class="form-control col-sm-4" id="eDevId" name="eDevId" placeholder="Ingresa DevID aqui">
       </div>
     </div>
     <div class="row conf">
-      <div class="col-2 nextlin">
-        <label for="eCertId">Ingresa CertID </label>
+      <div class="col-1 nextlin">
+        <label for="eCertId">CertID </label>
       </div>
       <div class="col-10">
          <input type="text" class="form-control col-sm-4" id="eCertId" name="eCertId" placeholder="Ingresa CertID aqui">
       </div>
     </div>
     <div class="row conf">
-      <div class="col-2 nextlin">
-        <label for="eMail">Ingresa Email </label>
+      <div class="col-1 nextlin">
+        <label for="eMail">Email </label>
       </div>
       <div class="col-10">
          <input type="text" class="form-control col-sm-4" id="eMail" name="eMail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Ingresa Email vinculado entre PayPal y Ebay" >
       </div>
     </div>
     <div class="row conf">
-      <div class="col-2">
-        <label >Ambito del AppID</label>
+      <div class="col-1">
+        <label >Ambito</label>
       </div>
       <div class="col-10 d-inline">
           <input type="radio" class="form-control" id="production" name="typeID" value="production" checked >
@@ -52,10 +56,10 @@
       </div>
     </div>
      <div class="row conf">
-      <div class="col-2 nextlin">
-        <label for="esiteId">Seleccione siteID </label>
+      <div class="col-1 nextlin">
+        <label for="esiteId">SiteID </label>
       </div>
-      <div class="col-10">
+      <div class="col-8">
          <select placeholder="Select" id="site_id_s">
           <option value="0" selected>(0) United States</option>
           <option value="2">(2) Canada (English)</option>
@@ -82,12 +86,12 @@
       </div>
     </div>
     <div class="row conf">
-      <div class="col-2">
-        <label for="eToken">Ingresa Token </label>
+      <div class="col-1">
+        <label for="eToken">Token </label>
       </div>
       </div>
        <div class="row">
-      <div class="col-6">
+      <div class="col-5">
         <textarea type="text" class="form-control" id="eToken" name="eToken" placeholder="Ingresa Token aqui" rows="4" cols="50" ></textarea>
       </div>
       </div>
