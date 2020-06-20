@@ -72,15 +72,35 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
 </div>
 
 <br>
-<h5>Refinar busqueda con:</h5>
+<h5>Refinar busqueda:</h5>
+<div class="form-group">
+   <p> Lo establecido en el submenu Filtros y Opciones</p>
 <div class="form-inline">
-    <button class="btn btn-primary col-sm-2" id="set_filter" name="set_filter">Filtros</button>
-    <button type="submit" id="set_opt " name ="set_opt" class="btn btn-secondary col-sm-2">Opciones</button>
+     
+  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+  <label class="form-check-label" for="defaultCheck1">
+
+    Aplicar Filtros (Marcas y aspectos propios del producto)
+  </label>
 </div>
+<div class="form-inline">
+  <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
+  <label class="form-check-label" for="defaultCheck2">
+    Aplicar Opciones (Rango de precios, condicion de venta, etc)
+  </label>
+</div>
+</div>
+
 <a role="button" class="btn btn-info col-sm-4" id="previo_search"  >Ver Resultados</a>
+
+
 <br>
-<br>        <div class="row-fluid col-md-5">
-        <h5>Examinando Categorias de la Tienda</h5>
+<br>     
+<h5>Para importar la lista resultante:</h5>
+
+<p><strong>Elija en que categorias vinculara su lista</strong></p>
+   <div class="row-fluid col-md-5">
+        <p>Usar Categorias de la Tienda</p>
             <div class="dropdown_catstore" id="princ_categ_tienda">
             <select style="display:none" multiple placeholder="Selecciona categoria(s)"></select>
             </div>
@@ -88,7 +108,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
         </div>
      
     
-<h5>Importar:</h5>
+<br>
 <div class="form-inline">
     <button type="submit" class="btn btn-primary col-sm-2" id="imp_now" name="imp_now" >Ahora</button>
     <button type="submit" id="imp_prog " name ="imp_prog" class="btn btn-secondary col-sm-2">Programar</button>
@@ -158,6 +178,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
             });
 
             $("#search_iditem").on("click", function(e){
+
                 var iditem = $("#iditem").val();
                 var appId = $("#id_imp").val();
                 var datos = {
@@ -183,8 +204,9 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     $("#url_view_it").attr('href',res.viewurl);
                     $("#pathcat1").html(res.namecat);
                    }else{
-                    e.preventDefault();
-                    alert("Error "+res.error);
+                    //e.preventDefault();
+                    $("#title_it").html("no hay nada");
+                   // alert("Error "+res.error);
                    }
                     
             });
@@ -230,6 +252,32 @@ $('input:radio[name="choosecat"]').change(function(){
     var targetBox = $("." + inputValue);
     $(".cates1").not(targetBox).hide();
     $(targetBox).show();
+});
+
+$("#importar_1").on("click", (e)=>{
+
+                var iditem = $("#iditem").val();
+                var appId = $("#id_imp").val();
+                var datos = {
+                appid : appId,
+                iditem : iditem
+            };
+            $.post(ebay_ajax+'?action=get_ebay',datos, function(response, status){
+
+                if(status=='success'){
+                    if(res['success']){
+                    alert("Lograste importar");
+                    }else if(res['error']){
+                        alert("Error "+res['error']);
+                    }else{
+                        alert('Error desconocido pero en success');
+                    }
+                   }else{
+                    alert("Error desconocido no success");
+                   }
+
+            });
+
 });
 
   //   $('#btn_close_t1').click(function(){

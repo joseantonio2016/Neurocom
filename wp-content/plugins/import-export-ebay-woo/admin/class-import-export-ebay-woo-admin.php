@@ -77,6 +77,8 @@ class Import_Export_Ebay_Woo_Admin {
         wp_enqueue_style( 'iewooebay.css', plugin_dir_url( __FILE__ ) . 'css/iewooebay.css', array(), $this->version, 'all' );
         
         wp_enqueue_style( 'jquery.dropdown.css', plugin_dir_url( __FILE__ ) . 'css/jquery.dropdown.css', array(), $this->version, 'all' );
+        wp_enqueue_style( 'tabsbootstrap.css', plugin_dir_url( __FILE__ ) . 'css/tabsbootstrap.css', array(), $this->version, 'all' );
+        wp_enqueue_style( 'stylecelda.css', plugin_dir_url( __FILE__ ) . 'css/stylecelda.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/import-export-ebay-woo-admin.css', array(), $this->version, 'all' );
 		
 		
@@ -122,10 +124,13 @@ class Import_Export_Ebay_Woo_Admin {
             // Add a new top-level menu (ill-advised):
         add_menu_page(__('Importar desde Ebay','menu-test'), __('Importar y Exportar EbayWoo','menu-test'), 'manage_options', 'importar-desde-ebay', array($this,'import_ebay_woo_function') );
 
-        add_submenu_page('importar-desde-ebay', 'Setting', 'Setting', 'manage_options', 'find_ebay_products/setting', 
+        add_submenu_page('importar-desde-ebay', 'Filtros y Opciones', 'Filtros y Opciones', 'manage_options', 'importar-desde-ebay/filtros-opciones', 
+            array($this,'filtros_opciones_function'));
+
+        add_submenu_page('importar-desde-ebay', 'Cuentas', 'Cuentas', 'manage_options', 'importar-desde-ebay/cuentas', 
             array($this,'setting_keys_id_function'));
 
-        add_submenu_page('importar-desde-ebay', 'Test', 'Test', 'manage_options', 'find_ebay_products/test', 
+        add_submenu_page('importar-desde-ebay', 'Test', 'Test', 'manage_options', 'importar-desde-ebay/test', 
             array($this,'find_ebay_products_function'));
           
         }
@@ -149,7 +154,100 @@ class Import_Export_Ebay_Woo_Admin {
           include plugin_dir_path( __FILE__ ) . '../admin/partials/import_ebay_woo.php';
            
         }
+        function filtros_opciones_function()
+        {
+         
+          include plugin_dir_path( __FILE__ ) . '../admin/partials/filtros_opciones_ebaywoo.php';
+           
+        }
       // mt_toplevel_page() displays the page content for the custom Test Toplevel menu
+
+
+        function down_filter2(){
+
+            if(!isset($_POST['user'])){
+                echo wp_json_encode(array('error'=>'No se envio correctamente la solicitud'));
+                wp_die();
+            }
+
+            $kw = $_POST['keyf'];
+            $ce = $_POST['catf'];
+            if(empty($kw)&&empty($ce)){
+                delete_transient ('ie_kw_cat_current');
+                echo wp_json_encode(array("error"=>"No envie campos vacios"));
+                wp_die();
+            }
+            $url= "https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=".$_POST['user']."&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD&outputSelector=AspectHistogram&";
+            if(!empty($kw)&&!empty($ce)){
+                $url .= "keywords=".$kw."&categoryId=".$ce;
+            }else {
+                $url .= empty($ce)?"keywords=".$kw:"categoryId=".$ce;
+            }
+
+//$url= "https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=".$_POST['user']."&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD&outputSelector=AspectHistogram&keywords=".$_POST['keyf'];//."&categoryId=".$_POST['catf'];
+
+             $arr_kw_cat = array('keywords'=>$_POST['keyf'],'category'=>$_POST['catf']);
+                set_transient('ie_kw_cat_current', $arr_kw_cat, HOUR_IN_SECONDS);
+                //delete_transient ('ie_brands_filter_current');
+   
+   $xml = simplexml_load_file($url);
+            if($xml->ack != 'Success')
+            {
+                $errorxml =(isset($xml->Errors))?(string)$xml->Errors->ShortMessage:"Error en recuperar xml";
+                echo wp_json_encode(array("error"=>$errorxml." url:".$url));
+                wp_die();
+            }
+
+           
+            $dominio = $xml->aspectHistogramContainer->domainDisplayName;
+               $marcas = $xml->aspectHistogramContainer->aspect;
+               $count=0;
+               $ret_brand = array();
+               //$arr_aspec = array();
+               //$ret = '';
+               foreach ($marcas as $value) {
+                 # code...
+               
+                if($value['name']!='Brand'){
+                    // if(count($arr_aspec)<4){
+                    //     $arr_temp = array();
+                    //     $name_aspect = (string)$value['name'];
+                    //     foreach ($value->valueHistogram as $val) {
+                    //         $vname = (string)$val['valueName'];
+                    //     array_push($arr_temp[$vname],(string)$val->count);
+                    //     }
+                    //     array_push($arr_aspec[$name_aspect],$arr_temp);
+                    // }
+                    $count++;
+                }
+                else {
+                  foreach ($value->valueHistogram as $val) {
+                  // $ret.='<option value="'.$val->count.'">'.$val['valueName'].'</option>';
+                   // $vname = (string)$val['valueName'];
+                    //array_push($ret_brand[$vname], (string)$val->count );
+                    $brand = $this->obj_marcas((string)$val['valueName'],$dominio);
+                    array_push($ret_brand,$brand);
+                  }
+                  break;
+                }
+               }
+               //if(!empty($ret_brand)||!empty($arr_aspec)){
+               if(empty($ret_brand)){
+                 echo wp_json_encode(array('error'=>'No se encontraron marcas o aspectos'));
+                wp_die();
+               }
+               // echo wp_json_encode(array('marcas'=>$ret_brand,'aspectos'=>$arr_aspec));
+                
+                set_transient('ie_brands_filter_current', json_encode($ret_brand), HOUR_IN_SECONDS);
+                echo wp_json_encode(array('success'=>'Se encontraron las marcas satisfactoriamente'));
+                wp_die();
+    }
+
+
+    function obj_marcas($marca_name,$dominio){
+                    return (object)array('id'=>$marca_name,'name'=>$marca_name,'groupId'=>1,'groupName'=>'Marcas de '.$dominio,'disabled'=>false,'selected'=>false);
+                }
+
         function get_categories(){
             if(isset($_POST['catid'])){
                     $endpoint_gc=
@@ -296,7 +394,7 @@ class Import_Export_Ebay_Woo_Admin {
                 }
             }else{
                 echo wp_json_encode(array('error'=>'Error enviando datos para solicitud'));
-                    exit(1);
+                   wp_die();
             }
 
         }
@@ -333,12 +431,11 @@ class Import_Export_Ebay_Woo_Admin {
 
         function get_ebay()
         {
-            echo "--";
             
-           if(isset($_GET['ebay_id']))
+           if(isset($_POST['ebay_id']))
                 {
-                  //$this->insert_product($this->global_get_ebay_item_details($_GET['ebay_id']));
-                    echo "existe ebay_id";
+                  $this->insert_product($this->global_get_ebay_item_details($_POST['ebay_id']));
+                  //  echo "existe ebay_id";
                 }
                 exit();
         }
@@ -658,7 +755,7 @@ class Import_Export_Ebay_Woo_Admin {
 
 
 
-      function global_get_ebay_item_details($item_id) {
+      function global_get_ebay_item_details($item_id,$app_id) {
      
      
              
@@ -669,9 +766,9 @@ class Import_Export_Ebay_Woo_Admin {
                         </GetSingleItemRequest>';
             $callName = 'GetSingleItem';
             $compatibilityLevel = 647;
-            $endpoint = "http://open.api.ebay.com/shopping";
+            $endpoint = "https://open.api.ebay.com/shopping";
             $headers[] = "X-EBAY-API-CALL-NAME: $callName";
-            $headers[] = "X-EBAY-API-APP-ID: APP ID Here";
+            $headers[] = "X-EBAY-API-APP-ID: ".$app_id;
             $headers[] = "X-EBAY-API-VERSION: $compatibilityLevel";
             $headers[] = "X-EBAY-API-REQUEST-ENCODING: XML";
             $headers[] = "X-EBAY-API-RESPONSE-ENCODING: XML";
