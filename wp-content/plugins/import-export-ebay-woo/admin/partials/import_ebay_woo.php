@@ -30,7 +30,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
  <br>
 
     <div class="form col-md-12 col-lg-10">
-        <h4>Importar un articulo de Ebay</h4>
+        <h4>Para importar un articulo de Ebay</h4>
         <div class="form-row">
             <label for="iditem" class="control-label col-sm-10 col-md-2">ID articulo:</label> 
             <input type="text" class="form-control col-sm-4 col-md-3" id="iditem" name="iditem" placeholder="Ingresa numero del articulo">
@@ -41,7 +41,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
 <br>
 
 <div class="form col-md-12 col-lg-10">
-    <h4>Buscar listas de articulos</h4>
+    <h4>Para buscar listas de articulos</h4>
     <div class="form-row">
     <label for="kw_item" class="col-sm-8 col-md-2 control-label">
         <strong>Palabras clave:</strong></label>
@@ -63,12 +63,12 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
 		</div>
     </div>
 <div class="form col-md-12 col-lg-10">
-     <div class="ionise"></div>
      <div class="form-row">
     <label for="id_cat" class="col-sm-8 col-md-2 control-label">Categoria Ebay:</label>
     <input type="text" class="form-control col-sm-8 col-md-3" id="id_cat" name="id_cat" placeholder="Ingresa Id de categoria">
     <a role="button" id="search_idcat " class="btn btn-info col-sm-8 col-md-3">Detalles de Categoria</a>
     </div>
+    <div class="ionise"></div>
 </div>
 
 <br>
@@ -117,67 +117,8 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
  
 </div>
 <script type="text/javascript">
-        $(document).ready(function(){
-            //var cats_php = JSON.parse(<?=$cats_js;?>);
-            $('#fcat').change(function(){
-            var catId = $('#fcat').val();
-            var appId = $("#id_imp").val();
-            var ambito = $("input[name='amb_imp']:checked").val();
-            var datos = {
-                appid : appId,
-                catid : catId,
-                ambito : ambito
-            }
-                $.post(ebay_ajax+'?action=get_categories',datos, function(response,status){
-                 if(status=='success'){
-                    var res = JSON.parse(response);
-                    if (!res.leaf){
-                        $('.div-scrollbar > span').html('<select size="15" class="columns" data-pos="'+res.i+'" id="subcat_'+res.i+'">'+res.browse+
-                            '</select><span class="subcat_'+res.i+'"></span>');
-                        $("#counter_gc").val("0");
-                        $("#id_cat").val(catId);
-                        $('.ionise').html('');
-                    }
-                //$('.div-scrollbar > span').html(response);
-                    }else 
-                    if(status=='error'){
-                        alert('Error de solicitud');
-                    }
-                });
-            }); //select onchange
-
-            $("#scroll_gc").on("change", ".columns", function(){
-                //alert($(this).attr('data-pos'));
-               var counter = $(this).attr('data-pos');//$("#counter_gc").val();
-                var catId = $('#subcat_'+counter).val();
-                var appId = $("#id_imp").val();
-                var ambito = $("input[name='amb_imp']:checked").val();
-                var datos = {
-                appid : appId,
-                catid : catId,
-                ambito : ambito,
-                counter : counter
-            };
-            $.post(ebay_ajax+'?action=get_categories',datos, function(response,status){
-                if(status =='success'){
-                    var res = JSON.parse(response);
-                    if (res.leaf){
-                        $('span.subcat_'+counter).html('<img src="http://pics.ebaystatic.com/aw/pics/icon/iconSuccess_32x32.gif" alt="Leaf Category!">');
-                         $(".ionise").html("<span><b>Categoria seleccionada:</b> ID="+catId+"<ul><li>"+res.categorypath+"</li></ul></span>");
-                    }else{  
-                     
-                        $('span.subcat_'+counter).html('<select size="15" class="columns" data-pos="'+res.i+'" id="subcat_'+res.i+'">'+res.browse+
-                            '</select><span class="subcat_'+res.i+'"></span>');
-                             $('.ionise').html('');
-                    }
-                    $("#id_cat").val(catId);
-                
-            }
-        });//fin post
-
-            });
-
-            $("#search_iditem").on("click", function(e){
+$(document).ready(function(){
+   $("#search_iditem").on("click", function(e){
 
                 var iditem = $("#iditem").val();
                 var appId = $("#id_imp").val();
@@ -190,8 +131,10 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     //var res = JSON.parse(response);
  
                     var res = JSON.parse(response);
-                   // alert(res.titulo1[0]); 
-                   //alert(res['error']);
+                   if(res.error!=undefined){
+                      $("#title_it").html(res.error);
+                      return;
+                    }
                    if(status=='success'&&!res['error']){
                     $("#title_it").html(res.titulo1);
                     $("#price_it").html(res.pricenw+" USD");
@@ -204,8 +147,8 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     $("#url_view_it").attr('href',res.viewurl);
                     $("#pathcat1").html(res.namecat);
                    }else{
-                    //e.preventDefault();
-                    $("#title_it").html("no hay nada");
+                    e.preventDefault();
+                    alert('No responde solicitud');
                    // alert("Error "+res.error);
                    }
                     
@@ -213,15 +156,15 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/tb_viewitem.php'
                     
             });
 
-            $('.dropdown_catstore').dropdown({
+  $('.dropdown_catstore').dropdown({
       data: <?=$cats_js; ?>,//json2.data,
       limitCount: 7,
       multipleMode: 'label',
       input: '<input type="text" maxLength="20" placeholder="Buscar categoria(s)...">'
     });
-    
-var pct = document.getElementById("princ_categ_tienda");
+
 var arr = [];
+
     $("#set_filter").click(function(event) {
         //var tab_attribs = [];
 //$('#princ_categ_tienda span').each(function () {
@@ -244,8 +187,6 @@ var arr = [];
      
 
     });
-
-});
 
 $('input:radio[name="choosecat"]').change(function(){
     var inputValue = $(this).attr("value");
@@ -279,49 +220,73 @@ $("#importar_1").on("click", (e)=>{
             });
 
 });
+$('#fcat').change(function(){
 
-  //   $('#btn_close_t1').click(function(){
-  //  $('#TB_window').fadeOut();
-  // });
+            var catId = $('#fcat').val();
+            var appId = $("#id_imp").val();
+            var ambito = $("input[name='amb_imp']:checked").val();
+            var datos = {
+                appid : appId,
+                catid : catId,
+                ambito : ambito
+            }
+                $.post(ebay_ajax+'?action=get_categories',datos, function(response,status){
+                 if(status=='success'){
+                    var res = JSON.parse(response);
+                    if(res.error!=undefined){
+                      $('.ionise').html(res.error);
+                      return;
+                    }
+                    if (!res.leaf){
+                        $('.div-scrollbar > span').html('<select size="15" class="columns" data-pos="'+res.i+'" id="subcat_'+res.i+'">'+res.browse+
+                            '</select><span class="subcat_'+res.i+'"></span>');
+                        $("#id_cat").val(catId);
+                        $('.ionise').html('');
+                    }
+                //$('.div-scrollbar > span').html(response);
+                    }else alert('No responde solicitud');
+                    
+                });
+            }); //select onchange
 
-            //  $('#micat').change(function(){
-            // var micat = $('#micat').val();
-            //     $.get(ebay_ajax+'?action=get_micat&micat='+micat, function(response,status){
-            //      if(status=='success'){
-            //         var res = JSON.parse(response);
-            //         if (!res.leaf){
-            //             $('.div-scrollbar > span').html('<select size="5" class="columns" id="subcat_'+res.i+'">'+res.browse+
-            //                 '</select><span class="subcat_'+res.i+'"></span>');
-            //             $("#conteo_gc").val("0");
-            //         }
-            //         }else 
-            //         if(status=='error'){
-            //             alert('Error de solicitud');
-            //         }
-            //     });
-            // }); //select onchange
-            //[{"id":20,"name":"Ropa de hombre","groupId":21,"groupName":"Ropa","disabled":false,"selected":false},{"id":16,"name":"Ropa de mujer","groupId":21,"groupName":"Ropa","disabled":false,"selected":false},{"id":24,"name":"Primaria","groupId":23,"groupName":"Utiles escolares","disabled":false,"selected":false},{"id":25,"name":"Secundaria","groupId":23,"groupName":"Utiles escolares","disabled":false,"selected":false}]
-//             <?xml version="1.0" encoding="UTF-8"?>
-// <findItemsByCategoryRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
-//   <categoryId>30059</categoryId>
-//   <aspectFilter>
-//     <aspectName>Brand</aspectName>
-//     <aspectValueName>Canon</aspectValueName>
-//   </aspectFilter>
-//   <outputSelector>AspectHistogram</outputSelector>
-//   <itemFilter>
-//     <name>Condition</name>
-//     <value>New</value>
-//   </itemFilter>
-// <itemFilter>
-//     <name>ListingType</name>
-//     <value>Auction</value>
-//   </itemFilter>
-//   <paginationInput>
-//     <entriesPerPage>1</entriesPerPage>
-//   </paginationInput>
-// </findItemsByCategoryRequest>
-// X-EBAY-SOA-SECURITY-APPNAME:JoseHuil-neurored-PRD-d2eae7200-83e626bd
-// X-EBAY-SOA-OPERATION-NAME:findItemsByCategory
+   $("#scroll_gc").on("change", ".columns", function(){
+                //alert($(this).attr('data-pos'));
+               var counter = $(this).attr('data-pos');//$("#counter_gc").val();
+                var catId = $('#subcat_'+counter).val();
+                var appId = $("#id_imp").val();
+                var ambito = $("input[name='amb_imp']:checked").val();
+                var datos = {
+                appid : appId,
+                catid : catId,
+                ambito : ambito,
+                counter : counter
+            };
+            $.post(ebay_ajax+'?action=get_categories',datos, function(response,status){
+                if(status !='success'){
+                  alert('No responde solicitud');
+                  return;
+                }
+                var res = JSON.parse(response);
+                if(res.error!=undefined){
+                      $('.ionise').html(res.error);
+                      return;
+                  }
+                  if (res.leaf){
+                        $('span.subcat_'+counter).html('<img src="http://pics.ebaystatic.com/aw/pics/icon/iconSuccess_32x32.gif" alt="Leaf Category!">');
+                         $(".ionise").html("<span><b>Categoria hoja seleccionada:</b> ID="+catId+"<ul><li>"+res.categorypath+"</li></ul></span>");
+                    }else{  
+                     
+                        $('span.subcat_'+counter).html('<select size="15" class="columns" data-pos="'+res.i+'" id="subcat_'+res.i+'">'+res.browse+
+                            '</select><span class="subcat_'+res.i+'"></span>');
+                             $('.ionise').html('');
+                    }
+                    $("#id_cat").val(catId);
+                
+        });//fin post
 
-        </script>
+            });
+})
+   
+
+
+</script>

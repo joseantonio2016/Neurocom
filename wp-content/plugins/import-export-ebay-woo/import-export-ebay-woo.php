@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:       Import Export Ebay Woo
  * Plugin URI:        http://ekumar.com.np/plugins/wp/
- * Description:       Este plugin es bueno para importar y exportar productos desde y hacia Ebay
+ * Description:       Este plugin es para importar y exportar productos desde y hacia Ebay
  * Version:           1.0.0
  * Author:            Neurocom
  * Author URI:        http://josewilka.com
@@ -36,25 +36,23 @@ define( 'PLUGIN_NAME_VERSION', '1.0.0' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-import-ebay-product-to-woocommerce-activator.php
  */
-// function activate_import_export_ebay_woo() {
+ function activate_import_export_ebay_woo() {
     
-// 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-import-export-ebay-woo-activator.php';
-// 	Import_Export_Ebay_Woo_Activator::activate();
-// }
+ 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-import-export-ebay-woo-activator.php';
+	Import_Export_Ebay_Woo_Activator::activate();
+ }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-import-ebay-product-to-woocommerce-deactivator.php
  */
-// function deactivate_import_export_ebay_woo() {
-// 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-import-export-ebay-woo-deactivator.php';
-// 	Import_Export_Ebay_Woo_Deactivator::deactivate();
-	
-	
-// }
+ function deactivate_import_export_ebay_woo() {
+ 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-import-export-ebay-woo-deactivator.php';
+ 	Import_Export_Ebay_Woo_Deactivator::deactivate();
+ }
 
-// register_activation_hook( __FILE__, 'activate_import_export_ebay_woo' );
-// register_deactivation_hook( __FILE__, 'deactivate_import_export_ebay_woo' );
+ register_activation_hook( __FILE__, 'activate_import_export_ebay_woo' );
+ register_deactivation_hook( __FILE__, 'deactivate_import_export_ebay_woo' );
 
 /**
  * The core plugin class that is used to define internationalization,

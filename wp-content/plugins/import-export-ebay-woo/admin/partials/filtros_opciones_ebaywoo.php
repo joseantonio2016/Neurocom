@@ -1,20 +1,19 @@
 <?php 
- 
- $ie_ew_current_id = array();
-if (false === ($ie_ew_current_id = get_transient ('ie_ew_current_id'))) {
-     $ie_ew_current_id = get_option( 'ie_ebay_woo_current_user');
-     set_transient ('ie_ew_current_id', $ie_ew_current_id, 12*HOUR_IN_SECONDS);
-}
+
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/ie_ebaywoo_current_user_check.php';
+
   $user = $ie_ew_current_id['user'];
- //echo '<input type="hidden" id="userf" val="'.$user.'">';
-  //delete_transient ('ie_brands_filter_current');
- // $ie_brands_filter_current = 0;//get_transient('ie_brands_filter_current') or 0;
   if (false === ($ie_brands_filter_current = get_transient('ie_brands_filter_current'))) 
   	$ie_brands_filter_current = 0;
   if (false === ($ie_kw_cat_current = get_transient('ie_kw_cat_current'))) 
   	$ie_kw_cat_current = array('keywords'=>'','category'=>'');
-  //$ie_brands_filter_current = 0;
-  //$ie_kw_cat_current = get_transient('ie_kw_cat_current') or array('keywords'=>'','category'=>'');
+  if(empty($user_active)){
+    echo "<p class='bg-danger aviso col-4'><b>Debe tener un AppID de Ebay activo
+       . Regrese al submenu anterio o registrese en Cuentasr</b><p><br>";
+       die();
+     }else
+      echo "<br><span class='exito'>AppID activo: <b>".$user_active."</b></span><br><br>";
+    
 ?> 
  
 
@@ -47,7 +46,7 @@ if (false === ($ie_ew_current_id = get_transient ('ie_ew_current_id'))) {
 
 <div class="row">
 	<div class="nav flex-column nav-pills col-sm-2 col-md-2 col-lg-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-  <a class="nav-link active text-center" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Marca</a>
+  <a class="nav-link active text-center" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Filtros</a>
   <a class="nav-link text-center" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Estado</a>
   <a class="nav-link text-center" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Precio</a>
   <a class="nav-link text-center" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Formato de Compra</a>
@@ -78,7 +77,7 @@ if (false === ($ie_ew_current_id = get_transient ('ie_ew_current_id'))) {
 </div>
 </div>
 
-<small id="userf" style="visibility: hidden;"><?=$user;?></small>
+<small id="userf" style="visibility: hidden;"><?=$user_active;?></small>
 <pre id="response"></pre>
 <script type="text/javascript">
 		
@@ -91,6 +90,7 @@ if (false === ($ie_ew_current_id = get_transient ('ie_ew_current_id'))) {
 
 
 $("#imp_filters2").on("click",function(event) {
+ 
 		 var kw = $("#kw_itemf").val();
 		 var ct = $("#id_catf").val();
 		var user = $("#userf").text();
@@ -99,28 +99,19 @@ $("#imp_filters2").on("click",function(event) {
 			catf : ct,
 			user : user
 		}
-		
-		//var marcas = new Object();
 		$.post(ebay_ajax+'?action=down_filter2',datos, function(response, status){
-                //if (status== 'success'){
-                    var res = JSON.parse(response);
-
- 				$("#response").html(response);
-                   if(status=='success'){
-                   	if(res['success']){
-                   		$("#response").html(res['success']);
+                  if(status !='success'){
+                  alert('No responde solicitud');
+                  return;
+                }
+                var res = JSON.parse(response);
+                if(res.error!=undefined){
+                      $("#response").html(res.error);
+                      return;
+                  }
+                   	$("#response").html(res['success']);
                    	alert("Descargaras filtros");
-                 	 window.location.reload();
-                   	}else if(res['error']){
-                   		alert("Error "+res['error']);
-                   	}else{
-                   		alert('Error desconocido pero en success');
-                   	}
-
-                   }else{
-                   	alert("Error desconocido no success");
-                   }
-                    
+                 	 window.location.reload();      
             });
 	});
 

@@ -1,13 +1,7 @@
 <?php 
- 
- $ie_ew_current_id = array();
-if (false === ($ie_ew_current_id = get_transient ('ie_ew_current_id'))) {
-     $ie_ew_current_id = get_option( 'ie_ebay_woo_current_user');
-     set_transient ('ie_ew_current_id', $ie_ew_current_id, 12*HOUR_IN_SECONDS);
-}
-  if(isset($ie_ew_current_id['user'])){
-      echo "<br><span class='exito'>AppID activo: <b>".$ie_ew_current_id['user']."</b></span><br><br>";
-  }
+ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/ie_ebaywoo_current_user_check.php';
+  if(!empty($user_active))
+      echo "<br><span class='exito'>AppID activo: <b>".$user_active."</b></span><br><br>";
 ?> 
 <h3> Registrar o actualizar Keys</h3>
 <div class="form">

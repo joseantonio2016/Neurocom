@@ -1,53 +1,44 @@
 <?php
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'partials/ie_ebaywoo_current_user_check.php';
 
 $browsecat = '';
 $ambi = array('checked', '');
-$ie_ew_current_id = array();
-if (false === ($ie_ew_current_id = get_transient ('ie_ew_current_id'))) {
-    // No estaba allí, así que regenere los datos y guarde el transitorio
-     $ie_ew_current_id = get_option( 'ie_ebay_woo_current_user');
-     set_transient ('ie_ew_current_id', $ie_ew_current_id, 12*HOUR_IN_SECONDS);
-}
-$user_active = "";
-if(isset($ie_ew_current_id['user'])){
-    $user_active = $ie_ew_current_id['user'];
-    if (false === ($browsecat = get_transient ('browsecat'))) {
+if(empty($user_active))
+        echo "<p class='bg-danger aviso col-4'><b>Ingrese primero un AppID de Ebay</b><p><br>";
+ 
+ $ambi = array('checked', '');
+ if($ie_ew_current_id['amb']===0)$ambi = array('', 'checked');
 
+if (false === ($browsecat = get_transient ('browsecat')))
      $browsecat = get_cats_parents_ebay($user_active, $ie_ew_current_id);
-     if (strlen($browsecat)>0)
-     set_transient ('browsecat', $browsecat, 6*HOUR_IN_SECONDS);
-    }
-
- }else{
-    echo "<p class='bg-danger aviso col-4'><b>Registre primero un AppID Ebay activo en Setting</b><p><br>";
- } 
 
  function get_cats_parents_ebay($user_active,$ie_ew_current_id){
-    $ret = '';
-     $amb = $ie_ew_current_id['amb'] or 1;
-    $siteid = $ie_ew_current_id['siteid'] or 0;
-    $endpoint_imp = "";
-     if($amb==1){
-            $endpoint_imp="http://open.api.ebay.com/Shopping?";
-            $ambi=array('checked', '');
-        }else{
-            $endpoint_imp="http://open.api.sandbox.ebay.com/Shopping?";
-            $ambi=array('', 'checked');
-        }
-        $url_imp .= $endpoint_imp."callname=GetCategoryInfo"
+    if(empty($user_active))return "";
+    $amb = $ie_ew_current_id['amb'];
+    $siteid = $ie_ew_current_id['siteid'];
+    $endpoint_imp="http://open.api.ebay.com/Shopping?";
+     if($amb===0)
+    $endpoint_imp="http://open.api.sandbox.ebay.com/Shopping?";
+        
+    $url_imp  = $endpoint_imp."callname=GetCategoryInfo"
                 ."&appid=$user_active"
                 ."&siteid=$siteid"
                 ."&CategoryID=-1"
                 ."&version=863"
                 ."&IncludeSelector=ChildCategories";
         $xml = simplexml_load_file($url_imp);
-        if($xml->Ack == 'Success'){
+        if($xml->Ack != 'Success'){
+            delete_transient('browsecat');
+            return "";
+        }
+            $ret='';
             foreach($xml->CategoryArray->Category as $cat){
             if($cat->CategoryLevel!=0):
             $ret.='<option value="'.$cat->CategoryID.'">'.$cat->CategoryName.'</option>';
             endif;
                 }
-            }else echo "<p><b>eBay retorna errores</b></p>";
+                //echo "esto no debe cargarse en cada carga de esta pagina";
+            set_transient ('browsecat', $ret, 6*HOUR_IN_SECONDS);
             return $ret;
  }
 
@@ -59,15 +50,13 @@ if(isset($ie_ew_current_id['user'])){
                 'orderby'=>'parent',
                 'order'=>'DESC') );
 
-function obj_cat($term_id,$term_name){
-                    return (object)array('id'=>$term_id,'name'=>$term_name,'groupId'=>1,'groupName'=>'Categorias','disabled'=>false,'selected'=>false);
+    function obj_cat($term_id,$term_name){
+        return (object)array('id'=>$term_id,'name'=>$term_name,'groupId'=>1,'groupName'=>'Categorias','disabled'=>false,'selected'=>false);
                 }
 
  $arrcat=array();
-
  foreach($cats_all as $cat){
-    $objCatChild =obj_cat($cat->term_id,$cat->name);
-    array_push($arrcat, $objCatChild);
+    array_push($arrcat, obj_cat($cat->term_id,$cat->name));
  }
  $cats_js = json_encode($arrcat);
      ?>

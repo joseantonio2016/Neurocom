@@ -106,8 +106,9 @@ class Import_Export_Ebay_Woo_Admin {
 		wp_enqueue_script("jquery.min.js", plugin_dir_url( __FILE__ ) . 'js/jquery.min.js', array( 'jquery' ), $this->version, false );
         wp_enqueue_script("bootstrap.min.js", plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
         wp_enqueue_script( 'jquery.dropdown.js', plugin_dir_url( __FILE__ ) . 'js/jquery.dropdown.js', array( 'jquery' ), $this->version, false );
-        wp_enqueue_script("ie-ebaywoo.js", plugin_dir_url( __FILE__ ) . 'js/ie-ebaywoo.js', array('jquery'), $this->version, false);
+        
         wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/import-export-ebay-woo-admin.js', array( 'jquery' ), $this->version, false );
+        wp_enqueue_script("ie-ebaywoo.js", plugin_dir_url( __FILE__ ) . 'js/ie-ebaywoo.js', array('jquery'), $this->version, true);
         //wp_localize_script('ebaywoo', 'ebaydev',admin_url('admin-ajax.php'));
 	 	wp_localize_script($this->plugin_name, 'ebay_ajax',admin_url('admin-ajax.php'));                
         
@@ -122,7 +123,10 @@ class Import_Export_Ebay_Woo_Admin {
         function import_export_ebay_woo_menu()
         {
             // Add a new top-level menu (ill-advised):
-        add_menu_page(__('Importar desde Ebay','menu-test'), __('Importar y Exportar EbayWoo','menu-test'), 'manage_options', 'importar-desde-ebay', array($this,'import_ebay_woo_function') );
+        add_menu_page(__('Importar y Exportar desde Ebay','menu-test'), __('Importar y Exportar EbayWoo','menu-test'), 'manage_options', 'importar-desde-ebay', array($this,'import_ebay_woo_function') );
+
+        add_submenu_page('importar-desde-ebay', 'Importar desde Ebay', 'Importar desde Ebay', 'manage_options', 'importar-desde-ebay', 
+            array($this,'import_ebay_woo_function'));
 
         add_submenu_page('importar-desde-ebay', 'Filtros y Opciones', 'Filtros y Opciones', 'manage_options', 'importar-desde-ebay/filtros-opciones', 
             array($this,'filtros_opciones_function'));
@@ -164,9 +168,8 @@ class Import_Export_Ebay_Woo_Admin {
 
 
         function down_filter2(){
-
-            if(!isset($_POST['user'])){
-                echo wp_json_encode(array('error'=>'No se envio correctamente la solicitud'));
+            if(empty($_POST['user'])){
+                echo wp_json_encode(array('error'=>'Error. Establezca un AppID antes'));
                 wp_die();
             }
 
@@ -174,7 +177,7 @@ class Import_Export_Ebay_Woo_Admin {
             $ce = $_POST['catf'];
             if(empty($kw)&&empty($ce)){
                 delete_transient ('ie_kw_cat_current');
-                echo wp_json_encode(array("error"=>"No envie campos vacios"));
+                echo wp_json_encode(array("error"=>"Error. No envie campos vacios"));
                 wp_die();
             }
             $url= "https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=".$_POST['user']."&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD&outputSelector=AspectHistogram&";
@@ -193,8 +196,9 @@ class Import_Export_Ebay_Woo_Admin {
    $xml = simplexml_load_file($url);
             if($xml->ack != 'Success')
             {
-                $errorxml =(isset($xml->Errors))?(string)$xml->Errors->ShortMessage:"Error en recuperar xml";
-                echo wp_json_encode(array("error"=>$errorxml." url:".$url));
+                $ackxml =(!empty($xml->Errors))?
+                (string)$xml->Errors->ShortMessage:"No se encontraron resultados";
+                echo wp_json_encode(array("error"=>$ackxml));
                 wp_die();
             }
 
@@ -233,13 +237,13 @@ class Import_Export_Ebay_Woo_Admin {
                }
                //if(!empty($ret_brand)||!empty($arr_aspec)){
                if(empty($ret_brand)){
-                 echo wp_json_encode(array('error'=>'No se encontraron marcas o aspectos'));
+                 echo wp_json_encode(array('error'=>'Error. No se encontraron marcas o aspectos'));
                 wp_die();
                }
                // echo wp_json_encode(array('marcas'=>$ret_brand,'aspectos'=>$arr_aspec));
                 
                 set_transient('ie_brands_filter_current', json_encode($ret_brand), HOUR_IN_SECONDS);
-                echo wp_json_encode(array('success'=>'Se encontraron las marcas satisfactoriamente'));
+                echo wp_json_encode(array('success'=>'Exito. Se encontraron las marcas'));
                 wp_die();
     }
 
@@ -249,11 +253,17 @@ class Import_Export_Ebay_Woo_Admin {
                 }
 
         function get_categories(){
-            if(isset($_POST['catid'])){
+            if(empty($_POST['appid'])){
+                echo wp_json_encode(array('error'=>
+                    "Error. No envie appID vacio"));
+                wp_die();
+            }
+
                     $endpoint_gc=
                     ($_POST['ambito']=="production")
                     ?"http://open.api.ebay.com/Shopping?"
                     :"http://open.api.sandbox.ebay.com/Shopping?";
+
                 $url_gc = $endpoint_gc
                  . "callname=GetCategoryInfo"
                  . "&appid=".$_POST['appid']
@@ -265,10 +275,18 @@ class Import_Export_Ebay_Woo_Admin {
 
     $xml = simplexml_load_file($url_gc);
     
-    $i = isset($_POST['counter']) ? $_POST['counter'] + 1 : 0;
+
     
-    if($xml->Ack=='Success'){
-        if($xml->CategoryArray->Category->LeafCategory=='false'):
+    if($xml->Ack != 'Success')
+            {
+                $ackxml =(!empty($xml->Errors))?
+                (string)$xml->Errors->ShortMessage:"No se encontraron categorias";
+                echo wp_json_encode(array("error"=>$ackxml));
+                wp_die();
+            }
+
+        $i = isset($_POST['counter']) ? $_POST['counter'] + 1 : 0;
+    if($xml->CategoryArray->Category->LeafCategory=='false'):
             $browse = "";
             foreach($xml->CategoryArray->Category as $cat){
                 if($cat->CategoryID!=$categoryID):
@@ -289,14 +307,7 @@ class Import_Export_Ebay_Woo_Admin {
         );
         echo wp_json_encode( $arr_leaf1);
         wp_die();
-    endif;
-}else{
-    echo wp_json_encode(array('error'=>"error en la busqueda"));
-    wp_die();
-}
-            }
-            echo wp_json_encode(array('error'=>"error de solicitud"));
-            wp_die();
+    endif;            
             
  }
 
@@ -304,7 +315,11 @@ class Import_Export_Ebay_Woo_Admin {
 
         function register_ebaydev(){
 
-            if(isset($_POST['appid'])){
+            if(empty($_POST['appid'])){
+                echo wp_json_encode(array('error'=>
+                    "No envie appID vacio"));
+                    wp_die();
+            }
                 $amb = $_POST['ambito']!='production'?0:1;
                 $app = $_POST['appid'];
                 $dev = $_POST['devid'];
@@ -315,30 +330,30 @@ class Import_Export_Ebay_Woo_Admin {
                 $app_v = $this->valid_appid($app, $amb);
 
                 if($app_v!=$app){
-                    echo '<p class="bg-danger"><b>Error: '.$app_v."</b></p>";
-                    exit();
+                    echo wp_json_encode(array('error'=>
+                    "Error. Su AppID no esta validado. ".$app_v));
+                    wp_die();
                 } 
                 $res = $this->insert_user($app, $dev, $cert, $token, $amb, $email);
-                if($res){
+                if($res==false){
+                    echo wp_json_encode(array('error'=>
+                    "Error. No se registro correctamente."));
+                    wp_die();
+                }
                     $arr_user = array('user'=>$app,'amb'=>$amb,'siteid'=>$siteid);
                     update_option('ie_ebay_woo_current_user', $arr_user);
-                    echo '<p class="bg-success"><b>Exitoso registro</b></p>';
-                }else{
-                    echo '<p class="bg-danger">No se registro nada</p>';
-                }
-                exit();
-            }else {
-                echo '<p>Error enviando solicitud</p>';
-                exit();
-            }
+                    echo wp_json_encode(array('exito'=>
+                    "Se registro correctamente."));
+                    wp_die();
 
         }
         //http://open.api.sandbox.ebay.com/Shopping?callname=GetCategoryInfo&appid=JoseAnt-neurored-SBX-02eb6be68-4f406d3f&siteid=0&CategoryID=-1&version=677
         function valid_appid($appid, $amb){
-            $endpoint = "http://open.api.ebay.com/Shopping?";
-            if ($amb==0){
-                $endpoint = "http://open.api.sandbox.ebay.com/Shopping?";
-            }
+
+                $endpoint =($amb===0)? 
+                "http://open.api.sandbox.ebay.com/Shopping?":
+                "http://open.api.ebay.com/Shopping?";
+            
             $apicall = "$endpoint"
             ."callname=GetCategoryInfo"
             . "&appid=$appid"
@@ -368,9 +383,19 @@ class Import_Export_Ebay_Woo_Admin {
 
         function search_item(){
 
-            if(isset($_POST['iditem'])){
+            if(empty($_POST['iditem']||empty($_POST['appid'])))
+            {
+                echo wp_json_encode(array('error'=>'Error. No envie campos vacios'));
+                   wp_die();
+            }
+
                 $xml = $this->get_single_ebay_item($_POST['iditem'],$_POST['appid']);
-                if($xml->Ack=="Success"){
+                if($xml->Ack!="Success"){
+                    $ackxml =(!empty($xml->Errors))?
+                (string)$xml->Errors->ShortMessage:"No se encontraron resultados";
+                echo wp_json_encode(array("error"=>$ackxml));
+                wp_die();
+                }
                     $list = $xml->Item;
                     $catp = end(explode(":", $list->PrimaryCategoryName.''));
                     $item_array = array(
@@ -384,19 +409,8 @@ class Import_Export_Ebay_Woo_Admin {
                         'statusl'=>$list->ListingStatus.'',
                         'titulo1'=>$list->Title.'',
                         'conditi'=>$list->ConditionDisplayName.'');
-                        echo wp_json_encode( $item_array );
-                        wp_die();
-                
-                }else{
-                    echo wp_json_encode(array('error'=>$xml->Errors->ShortMessage.
-                        ''.$xml->Errors->LongMessage));
+                    echo wp_json_encode( $item_array );
                     wp_die();
-                }
-            }else{
-                echo wp_json_encode(array('error'=>'Error enviando datos para solicitud'));
-                   wp_die();
-            }
-
         }
 
           function get_single_ebay_item($item_id, $appid) {

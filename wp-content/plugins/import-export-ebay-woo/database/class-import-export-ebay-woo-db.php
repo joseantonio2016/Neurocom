@@ -30,9 +30,9 @@ function ie_ebay_woo_db_install() {
 		devid varchar(50) DEFAULT '' NOT NULL,
 		certid varchar(55) DEFAULT '' NOT NULL,
 		email varchar(85) DEFAULT '' NOT NULL,
-		token TEXT NOT NULL,
+		token text NOT NULL,
 		ambito tinyint(1) DEFAULT 1 NOT NULL,
-		PRIMARY KEY (id),
+		PRIMARY KEY  (id),
 		UNIQUE KEY user (appid, ambito)
 	) ".$charset_collate.";";
 	dbDelta( $sql);
@@ -44,7 +44,7 @@ function ie_ebay_woo_db_install() {
 		options TEXT NOT NULL,
 		date_saved TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		id_user mediumint(9) NOT NULL,
-		PRIMARY KEY (id)
+		PRIMARY KEY  (id)
 	) ".$charset_collate.";";
 	dbDelta( $sql);
 
@@ -53,7 +53,7 @@ function ie_ebay_woo_db_install() {
 		id_query mediumint(9) NOT NULL,
 		date_request TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		success mediumint(7) NOT NULL,
-		PRIMARY KEY (id)
+		PRIMARY KEY  (id)
 		) ".$charset_collate.";";
 	dbDelta( $sql);
 
@@ -62,7 +62,7 @@ function ie_ebay_woo_db_install() {
 		id_post mediumint(9) NOT NULL,
 		id_ebay mediumint(15) NOT NULL,
 		id_success mediumint(9) NOT NULL,
-		PRIMARY KEY (id)
+		PRIMARY KEY  (id)
 		) ".$charset_collate.";";
 	dbDelta( $sql);
 

@@ -69,7 +69,7 @@ class Import_Export_Ebay_Woo {
 		$this->loader->add_action( 'wp_ajax_register_ebaydev', $plugin_admin, 'register_ebaydev' );
 		$this->loader->add_action( 'wp_ajax_get_categories', $plugin_admin, 'get_categories' );
 		$this->loader->add_action( 'wp_ajax_search_item', $plugin_admin, 'search_item' );
-		
+		$this->loader->add_action( 'wp_ajax_down_filter2', $plugin_admin, 'down_filter2' );
 
 	}
 
